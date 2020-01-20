@@ -14,14 +14,14 @@
         <form #f="ngForm" (ngSubmit)="onLogin(f)">
           <ion-item  >
             <ion-label position="floating">Mobile-no</ion-label>
-            <ion-input name="username" type="number" [(ngModel)]="model.username"></ion-input>
+            <ion-input name="username" type="text [(ngModel)]="model.username"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label position="floating">Password</ion-label>
             <ion-input required name="password" type="text" [(ngModel)]="model.password"></ion-input>
           </ion-item>
-          <ion-text>this functionality is disabled for a time being</ion-text>
-          <ion-button block color="primary" type="submit" disabled>
+          <!-- <ion-text>this functionality is disabled for a time being</ion-text> -->
+          <ion-button block color="primary" type="submit" >
             Login
           </ion-button>
         </form>
