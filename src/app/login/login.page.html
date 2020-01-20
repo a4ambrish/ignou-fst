@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="grid">
+    <ion-row>
+      <ion-col size="12">
+        <form #f="ngForm" (ngSubmit)="onLogin(f)">
+          <ion-item  >
+            <ion-label position="floating">Mobile-no</ion-label>
+            <ion-input name="username" type="number" [(ngModel)]="model.username"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input required name="password" type="text" [(ngModel)]="model.password"></ion-input>
+          </ion-item>
+          <ion-text>this functionality is disabled for a time being</ion-text>
+          <ion-button block color="primary" type="submit" disabled>
+            Login
+          </ion-button>
+        </form>
+        
+      </ion-col>
+      <ion-col size="12" align-self-center>
+        <ion-item>
+          <p>register here <a href="http://blog.ambrishjha.in/registration/">Registration</a></p>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

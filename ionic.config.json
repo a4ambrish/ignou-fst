@@ -1,0 +1,7 @@
+{
+  "name": "Challange_your_skills",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
