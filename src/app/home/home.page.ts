@@ -3,6 +3,7 @@ import { AuthService } from './../auth.service';
 import { Questions } from './model/questions';
 
 import { DataService } from './../data.service';
+import {StorageService} from './../storage.service';
 import { Component } from '@angular/core';
 
 import 'hammerjs';
@@ -24,15 +25,35 @@ export class HomePage {
   constructor(
       private dataservice: DataService,
       private toast: ToastController,
-      public authService: AuthService) {
+      public authService: AuthService,
+      public storageService:StorageService ) {
+console.log("consturcor called..")
     this.getingData();
   }
 
   getingData() {
-    this.dataservice.getData().subscribe(data => {
-    this.questionData = data;
-    console.log(this.questionData);
-  });
+    this.storageService.getObject('QA_MASTER').then(result => {
+      if (result != null) {
+        this.questionData = result;
+        if(this.questionData == null ){
+          this.dataservice.getData().subscribe(data => {
+          this.questionData = data;
+          console.log('Saving Data into local storage...')
+          this.storageService.setObject("QA_MASTER",this.questionData);
+          console.log(this.questionData);
+        });
+      }else{
+
+        console.log('QA_MASTER Loaded from local store');
+       
+      }
+      }
+      }).catch(e => {
+        this.questionData =null;
+      console.log('error: ', e);
+      });
+
+    
 }
 collectingAnswer() {
 

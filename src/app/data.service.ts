@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
+import {StorageService} from './storage.service';
 
 const apiUrl = 'http://blog.ambrishjha.in/wp-json/wcra/v1/api/?secret_key=tz1Enppaq00xOYySu8YaDt578LT5oQgP';
 // const apiUrl = environment.ambrishApi;
@@ -15,12 +17,15 @@ const postUrl = 'http://192.168.1.5/wordpressRestforTest/wp-json/wcra/v1/answera
 })
 export class DataService {
  public token;
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private storage: StorageService) {
 
    }
    getData(): Observable<Questions[]> {
    // tslint:disable-next-line: no-string-literal
-   return this.http.get(`${apiUrl}`).pipe(map (result => result['data']));
+   let jsonData : any;
+    jsonData = this.http.get(`${apiUrl}`).pipe(map (result => result['data']));
+
+    return jsonData;
    }
 
    postData(data): Observable<any> {

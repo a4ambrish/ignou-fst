@@ -14,6 +14,9 @@ export class LoginPage implements OnInit {
   constructor(private authservice: AuthService, private router: Router, private tost: ToastController, private dataService: DataService) { }
 model: any = {};
   ngOnInit() {
+    this.model.username="fst";
+    this.model.password="123456";
+
   }
   onLogin(f) {
       console.log(this.model);
