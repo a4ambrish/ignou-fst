@@ -62,8 +62,7 @@ remove(key: string) {
 this.storage.remove(key);
 }
 //  delete all data from your application:
-clear() 
-{
+clear() {
 this.storage.clear();
 }
 }

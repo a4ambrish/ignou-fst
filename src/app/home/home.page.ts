@@ -1,10 +1,11 @@
+import { Router } from '@angular/router';
 import { Answer } from './model/Answers';
 import { AuthService } from './../auth.service';
 import { Questions } from './model/questions';
 
 import { DataService } from './../data.service';
 import {StorageService} from './../storage.service';
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 
 import 'hammerjs';
 import { ToastController } from '@ionic/angular';
@@ -26,37 +27,35 @@ export class HomePage {
       private dataservice: DataService,
       private toast: ToastController,
       public authService: AuthService,
-      public storageService:StorageService ) {
-console.log("consturcor called..")
-    this.getingData();
+      public storageService: StorageService,
+      private router: Router) {
+      console.log('consturcor called..');
+      this.getingData();
   }
-
+  Click() {
+    console.log('click hua');
+  }
   getingData() {
     this.storageService.getObject('QA_MASTER').then(result => {
       if (result != null) {
         this.questionData = result;
-        if(this.questionData == null ){
+        if (this.questionData == null ) {
           this.dataservice.getData().subscribe(data => {
           this.questionData = data;
-          console.log('Saving Data into local storage...')
-          this.storageService.setObject("QA_MASTER",this.questionData);
+          console.log('Saving Data into local storage...');
+          this.storageService.setObject('QA_MASTER', this.questionData);
           console.log(this.questionData);
         });
-      }else{
-
-        console.log('QA_MASTER Loaded from local store');
-       
       }
+         } else {
+        console.log('QA_MASTER Loaded from local store');
       }
       }).catch(e => {
-        this.questionData =null;
-      console.log('error: ', e);
+        this.questionData = null;
+        console.log('error: ', e);
       });
-
-    
 }
 collectingAnswer() {
-
 }
 
 onSave(qIndexId) {
