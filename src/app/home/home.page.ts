@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Answer } from './model/Answers';
 import { AuthService } from './../auth.service';
 import { Questions } from './model/questions';
@@ -28,26 +28,34 @@ export class HomePage {
       private toast: ToastController,
       public authService: AuthService,
       public storageService: StorageService,
-      private router: Router) {
+      private acivatedRoute: ActivatedRoute) {
       console.log('consturcor called..');
       this.getingData();
   }
   Click() {
     console.log('click hua');
   }
+  reloadedData() {
+ this.acivatedRoute.params.subscribe(Params => {
+  this.questionData = Params['questionData'];
+  this.storageService.setObject('QA_MASTER', this.questionData);
+  console.log(this.questionData);
+});
+  }
   getingData() {
     this.storageService.getObject('QA_MASTER').then(result => {
-      if (result != null) {
+      if (result !== null) {
         this.questionData = result;
-        if (this.questionData == null ) {
+          // tslint:disable-next-line: align
+      } else if (result === null ) {
           this.dataservice.getData().subscribe(data => {
           this.questionData = data;
+          console.log(this.questionData);
           console.log('Saving Data into local storage...');
           this.storageService.setObject('QA_MASTER', this.questionData);
           console.log(this.questionData);
         });
-      }
-         } else {
+      } else {
         console.log('QA_MASTER Loaded from local store');
       }
       }).catch(e => {

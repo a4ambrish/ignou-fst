@@ -1,4 +1,9 @@
+import { StorageService } from './../storage.service';
+import { Questions } from './../home/model/questions';
+import { Router } from '@angular/router';
+import { DataService } from './../data.service';
 import { HomePage } from './../home/home.page';
+
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,16 +12,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./settings.page.scss'],
 })
 export class SettingsPage implements OnInit {
-  home: HomePage;
-
-  constructor() { }
+  constructor(private dataservice: DataService, private router: Router, private storage: StorageService) { }
 
   ngOnInit() {
   }
   reloadQuestion() {
-    this.home.getingData();
-    console.log('inside reload method');
-
+   this.dataservice.getData().subscribe(data => {
+    this.storage.setObject('QA_MASTER', data);
+   // this.router.navigate(['/home', ]);
+    this.router.navigate(['/home', {state: {reloadQuestion: true}}]);
+    console.log('mai reload me hu' + data);
+   });
   }
 
 }

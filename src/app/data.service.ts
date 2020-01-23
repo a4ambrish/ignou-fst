@@ -22,10 +22,9 @@ export class DataService {
    }
    getData(): Observable<Questions[]> {
    // tslint:disable-next-line: no-string-literal
-   let jsonData : any;
-    jsonData = this.http.get(`${apiUrl}`).pipe(map (result => result['data']));
+    let jsonData: any;
+    return  this.http.get(`${apiUrl}`).pipe(map (result => result['data']));
 
-    return jsonData;
    }
 
    postData(data): Observable<any> {
